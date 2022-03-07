@@ -24,7 +24,7 @@ The site has a responsive design and is adapted for devices with different scree
 ## [Come here](https://dobkir.github.io/simple-video-player/) to watch this web application on your Web Browser
 
 <!-- TOOLS -->
-### Built With
+### Built with
 
 - Languages<br>
 ![Languages][languages-shield]
