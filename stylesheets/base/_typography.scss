@@ -1,0 +1,30 @@
+/**
+ * Basic typography style for copy text
+ */
+.body {
+  font: $text-font;
+  color: $text-color;
+}
+
+.section-title {
+  font: $section-title-font;
+  letter-spacing: 2px;
+  color: $brand-color;
+
+  @include media-tablet-portrait {
+    font: $mobile-section-title-font;
+  }
+}
+
+.footer {
+  font: $text-bold-font;
+}
+
+.active-link,
+.text-gold {
+  color: $brand-color;
+}
+
+.active-link {
+  text-shadow: 1px 1px 2px rgba($text-color, 1)
+}

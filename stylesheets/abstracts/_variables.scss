@@ -1,0 +1,30 @@
+/// Fonts 'Inter-Regular'
+$text-font: normal 400 1.125rem/2.25rem "Inter-Regular";
+
+/// Fonts 'Inter-Bold'
+$section-title-font: normal 700 2.5rem/5rem "Inter-Bold";
+$mobile-section-title-font: normal 700 2rem/2.5rem "Inter-Bold";
+$text-bold-font: normal 700 1.25rem/2.5rem "Inter-Bold";
+
+
+
+/// Copy text color
+/// @type Color
+$text-color: #ffffff !default;
+
+/// Main brand color
+/// @type Color
+$brand-color: #1181A6 !default;
+
+/// Background color
+/// @type Color
+$bg-color: #8fe3ff !default;
+
+/// Media controls color
+/// @type Color
+$lines-color: #b3b3b3 !default;
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1440px !default;
+

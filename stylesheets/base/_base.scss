@@ -1,0 +1,38 @@
+html {
+  box-sizing: border-box;
+  font-size: 1em;
+
+  background-color: $bg-color;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/**
+ * Basic styles for links
+ */
+a {
+  text-decoration: none;
+  color: $text-color;
+
+  @extend %transition;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $brand-color;
+  }
+}
+
+/**
+ * Basic styles for lists
+ */
+ul {
+  list-style: none;
+  padding: 0;
+
+  color: $text-color;
+}

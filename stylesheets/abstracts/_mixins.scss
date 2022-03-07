@@ -1,0 +1,68 @@
+/// For interactive icons .svg
+
+@mixin mask(
+  $image-url,
+  $mask-size: cover,
+  $bg-color: $brand-color,
+  $hover-color: $bg-color
+  ) {
+  // If you don't want a blue square when clicking on svg on a mobile device
+  // use the property '-webkit-tap-highlight-color'
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background-color: $bg-color;
+  background-position: center;
+  -webkit-mask-image: url("#{$image-url}");
+  mask-image: url("#{$image-url}");
+  -webkit-mask-size: $mask-size;
+  mask-size: $mask-size;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-color;
+  }
+
+  &:active {
+    background-color: darken($hover-color, 10%);
+  }
+}
+
+
+
+/// Adaptive design breakpoints
+
+
+// TV
+@mixin media-tv {
+  @media (min-width: 1400px) { @content; }
+}
+
+// Large desktops and laptops
+@mixin media-desktop-large {
+  @media (max-width: 1399px) { @content; }
+}
+
+// Landscape tablets and medium desktops
+@mixin media-desktop {
+  @media (max-width: 1199px) { @content; }
+}
+
+
+// Portrait tablets and small desktops
+@mixin media-tablet-landscape {
+  @media (max-width: 991px) { @content; }
+}
+
+// Landscape phones and portrait tablets
+@mixin media-tablet-portrait {
+  @media (max-width: 768px) { @content; }
+}
+
+// Portrait phones and smaller
+@mixin media-phone {
+  @media (max-width: 480px) { @content; }
+}
+
+// Iphone 5
+@mixin media-iphone5 {
+  @media (max-width: 320px) { @content; }
+}
