@@ -38,7 +38,13 @@ const controlPlay = videoFrame.querySelector('.play-icon')
 const controlVolume = videoFrame.querySelector('.volume-icon')
 const controlFullscreen = videoFrame.querySelector('.fullscreen-icon')
 const timelineBar = videoFrame.querySelector('.timeline')
+const currentTime = videoFrame.querySelector('.time__currenttime')
+const durationTime = videoFrame.querySelector('.time__duration')
 const volumeBar = videoFrame.querySelector('.volume')
+
+/// Predicates
+let hasHours = false
+
 
 /// Events
 
@@ -50,6 +56,8 @@ videoPlayer.addEventListener('click', pauseVideo)
 controlPlay.addEventListener('click', toggleVideoPlayback)
 // Click on the volume control button
 controlVolume.addEventListener('click', toggleVolume)
+// When video is ready to play
+videoPlayer.addEventListener('canplay', showPlaybackTime)
 // Update the position on a timeline
 videoPlayer.addEventListener('timeupdate', updateTimelineBar)
 // Actions on video end event
@@ -125,11 +133,50 @@ function endVideoPlayback() {
   videoFrame.classList.add('hover')
 }
 
+// Convert seconds to hh:mm:ss or mm:ss format
+function formatTime(time, hasHours) {
+  let hours = 0
+  let minutes = 0
+  let seconds = 0
+
+  if (hasHours) {
+    hours = Math.floor(time / 3600)
+    time = time - hours * 3600
+
+    minutes = Math.floor(time / 60)
+    seconds = Math.floor(time % 60)
+
+    return `${hours.lead0(2)}:${minutes.lead0(2)}:${seconds.lead0(2)}`
+  } else {
+    minutes = Math.floor(time / 60)
+    seconds = Math.floor(time % 60)
+
+    return `${minutes.lead0(2)}:${seconds.lead0(2)}`
+  }
+}
+
+Number.prototype.lead0 = function (digits) {
+  let timer = "" + this
+  while (timer.length < digits) {
+    timer = "0" + timer
+  }
+  return timer
+}
+
+function showPlaybackTime() {
+  // Determine whether to display the number of hours in the video player?
+  hasHours = (videoPlayer.duration / 3600) >= 1.0
+  durationTime.textContent = formatTime(videoPlayer.duration, hasHours)
+  currentTime.textContent = formatTime(0, hasHours)
+}
+
 function updateTimelineBar() {
   let videoCurrentTime = Math.round(videoPlayer.currentTime)
   let videoTotalLength = Math.round(videoPlayer.duration)
   let value = (videoCurrentTime * 100 / videoTotalLength) || 0
-  updateProgressBar(timelineBar, value);
+  updateProgressBar(timelineBar, value)
+
+  currentTime.textContent = formatTime(videoCurrentTime, hasHours)
 }
 
 function updateVolumeBar(value) {
