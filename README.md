@@ -1,4 +1,4 @@
-# ![Video player icon](#) Simple video player ![Video player icon](#)
+# ![Video player icon](/assets/img/icons8-video-player-48.png) Simple video player ![Video player icon](/assets/img/icons8-video-player-48.png)
 
 [![Contributors][contributors-shield]][contributors-url]&nbsp;
 [![Forks][forks-shield]][forks-url]&nbsp;
@@ -18,6 +18,8 @@ Pure template on JS/HTML5/SCSS. It was created without a task runner, without a 
 
 The site has a responsive design and is adapted for devices with different screen sizes.
 
+[The 7-1 Pattern](https://sass-guidelin.es/#architecture) of Sass architecture uses here.
+
 <!-- LINK TO WEBSITE -->
 ## [Come here](https://dobkir.github.io/simple-video-player/) to watch this web application on your Web Browser
 
@@ -31,8 +33,8 @@ The site has a responsive design and is adapted for devices with different scree
 ![Main language][main-language-shield]
 
 - Others<br>
-![SCSS](https://img.shields.io/badge/SCSS-43.4%25-bf4080?logo=Html5&logoColor=bf4080&style=for-the-badge)<br>
-![HTML5](https://img.shields.io/badge/HTML5-10.4%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-30.5%25-f1e05a?logo=JavaScript&logoColor=f1e05a&style=for-the-badge)<br>
+![HTML5](https://img.shields.io/badge/HTML5-17.6%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
 
 - IDE<br>
 ![VSCode](https://img.icons8.com/color/48/000000/visual-studio-code-2019.png)<br>
@@ -72,5 +74,5 @@ Project Link: [https://github.com/dobkir/simple-video-player](https://github.com
 [license-url]: https://github.com/dobkir/simple-video-player/blob/master/LICENSE.txt
 [repo-size-shield]: https://img.shields.io/github/repo-size/dobkir/simple-video-player.svg?style=for-the-badge
 [languages-shield]: https://img.shields.io/github/languages/count/dobkir/simple-video-player.svg?style=for-the-badge
-[main-language-shield]: https://img.shields.io/github/languages/top/dobkir/simple-video-player.svg?logo=JavaScript&logoColor=f1e05a&style=for-the-badge&color=f1e05a
+[main-language-shield]: https://img.shields.io/github/languages/top/dobkir/simple-video-player.svg?logo=SASS&logoColor=c6538c&style=for-the-badge&color=c6538c
 [product-screenshot]: https://github.com/dobkir/trailers/blob/master/simple-video-player_trailer/simple-video-player_trailer.gif
