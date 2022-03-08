@@ -101,14 +101,16 @@ function stopVideo() {
 }
 
 function playSound() {
-  changeOneIconToOther('mute-icon', 'half-volume-icon')
+  changeOneIconToOther('mute-icon', 'medium-volume-icon')
   videoPlayer.muted = false
   updateVolumeBar(40)
 }
 
 function muteSound() {
-  if (controlVolume.classList.contains('half-volume-icon')) {
-    changeOneIconToOther('half-volume-icon', 'mute-icon')
+  if (controlVolume.classList.contains('low-volume-icon')) {
+    changeOneIconToOther('low-volume-icon', 'mute-icon')
+  } else if (controlVolume.classList.contains('medium-volume-icon')) {
+    changeOneIconToOther('medium-volume-icon', 'mute-icon')
   } else if (controlVolume.classList.contains('full-volume-icon')) {
     changeOneIconToOther('full-volume-icon', 'mute-icon')
   }
@@ -203,19 +205,37 @@ function handleProgressBarChanges(event) {
   if (target === volumeBar) {
     updateVolumeBar(value)
     if (value == 0) {
-      if (controlVolume.classList.contains('half-volume-icon')) {
-        changeOneIconToOther('half-volume-icon', 'mute-icon')
+      if (controlVolume.classList.contains('low-volume-icon')) {
+        changeOneIconToOther('low-volume-icon', 'mute-icon')
+      } else if (controlVolume.classList.contains('medium-volume-icon')) {
+        changeOneIconToOther('medium-volume-icon', 'mute-icon')
       } else if (controlVolume.classList.contains('full-volume-icon')) {
         changeOneIconToOther('full-volume-icon', 'mute-icon')
       }
-    } else if (value < 50) {
+    } else if (value < 33.3) {
       if (controlVolume.classList.contains('mute-icon')) {
-        changeOneIconToOther('mute-icon', 'half-volume-icon')
+        changeOneIconToOther('mute-icon', 'low-volume-icon')
+      } else if (controlVolume.classList.contains('medium-volume-icon')) {
+        changeOneIconToOther('medium-volume-icon', 'low-volume-icon')
       } else if (controlVolume.classList.contains('full-volume-icon')) {
-        changeOneIconToOther('full-volume-icon', 'half-volume-icon')
+        changeOneIconToOther('full-volume-icon', 'low-volume-icon')
+      }
+    } else if (value < 66.6) {
+      if (controlVolume.classList.contains('mute-icon')) {
+        changeOneIconToOther('mute-icon', 'medium-volume-icon')
+      } else if (controlVolume.classList.contains('low-volume-icon')) {
+        changeOneIconToOther('low-volume-icon', 'medium-volume-icon')
+      } else if (controlVolume.classList.contains('full-volume-icon')) {
+        changeOneIconToOther('full-volume-icon', 'medium-volume-icon')
       }
     } else if (value <= 100) {
-      changeOneIconToOther('half-volume-icon', 'full-volume-icon')
+      if (controlVolume.classList.contains('mute-icon')) {
+        changeOneIconToOther('mute-icon', 'full-volume-icon')
+      } else if (controlVolume.classList.contains('low-volume-icon')) {
+        changeOneIconToOther('low-volume-icon', 'full-volume-icon')
+      } else if (controlVolume.classList.contains('medium-volume-icon')) {
+        changeOneIconToOther('medium-volume-icon', 'full-volume-icon')
+      }
     }
   }
 }

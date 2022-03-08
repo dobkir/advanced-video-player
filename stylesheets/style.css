@@ -683,12 +683,16 @@ ul {
   background-image: url("../assets/svg/reload.svg");
 }
 
-.half-volume-icon {
-  background-image: url("../assets/svg/half-volume.svg");
+.low-volume-icon {
+  background-image: url("../assets/svg/volume-low.svg");
+}
+
+.medium-volume-icon {
+  background-image: url("../assets/svg/volume-medium.svg");
 }
 
 .full-volume-icon {
-  background-image: url("../assets/svg/full-volume.svg");
+  background-image: url("../assets/svg/volume-high.svg");
 }
 
 .mute-icon {
