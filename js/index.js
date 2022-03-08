@@ -167,7 +167,7 @@ function showPlaybackTime() {
   // Determine whether to display the number of hours in the video player?
   hasHours = (videoPlayer.duration / 3600) >= 1.0
   durationTime.textContent = formatTime(videoPlayer.duration, hasHours)
-  currentTime.textContent = formatTime(0, hasHours)
+  currentTime.textContent = formatTime(value, hasHours)
 }
 
 function updateTimelineBar() {
