@@ -101,13 +101,17 @@ function stopVideo() {
 }
 
 function playSound() {
-  changeOneIconToOther('mute-icon', 'volume-icon')
+  changeOneIconToOther('mute-icon', 'half-volume-icon')
   videoPlayer.muted = false
   updateVolumeBar(40)
 }
 
 function muteSound() {
-  changeOneIconToOther('volume-icon', 'mute-icon')
+  if (controlVolume.classList.contains('half-volume-icon')) {
+    changeOneIconToOther('half-volume-icon', 'mute-icon')
+  } else if (controlVolume.classList.contains('full-volume-icon')) {
+    changeOneIconToOther('full-volume-icon', 'mute-icon')
+  }
   videoPlayer.muted = true
   updateVolumeBar(0)
 }
@@ -198,10 +202,20 @@ function handleProgressBarChanges(event) {
   }
   if (target === volumeBar) {
     updateVolumeBar(value)
-    if (value === '0') {
-      changeOneIconToOther('volume-icon', 'mute-icon')
-    } else {
-      changeOneIconToOther('mute-icon', 'volume-icon')
+    if (value == 0) {
+      if (controlVolume.classList.contains('half-volume-icon')) {
+        changeOneIconToOther('half-volume-icon', 'mute-icon')
+      } else if (controlVolume.classList.contains('full-volume-icon')) {
+        changeOneIconToOther('full-volume-icon', 'mute-icon')
+      }
+    } else if (value < 50) {
+      if (controlVolume.classList.contains('mute-icon')) {
+        changeOneIconToOther('mute-icon', 'half-volume-icon')
+      } else if (controlVolume.classList.contains('full-volume-icon')) {
+        changeOneIconToOther('full-volume-icon', 'half-volume-icon')
+      }
+    } else if (value <= 100) {
+      changeOneIconToOther('half-volume-icon', 'full-volume-icon')
     }
   }
 }
