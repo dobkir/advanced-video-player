@@ -1,4 +1,4 @@
-.timeline,
+.volume-container, .timeline,
 .volume, .control-button, .controls, .play-video-button, .video-presentation, a {
   transition: all 0.4s ease-in-out;
 }
@@ -615,7 +615,7 @@ ul {
   bottom: 0;
   z-index: 2;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
@@ -640,14 +640,6 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
-}
-
-.controls__first-line {
-  min-width: 80%;
-}
-
-.controls__second-line {
-  min-width: 20%;
 }
 
 .control-button {
@@ -721,10 +713,24 @@ ul {
   background: linear-gradient(to right, #1181A6 0%, #1181A6 0%, #b3b3b3 0%, #b3b3b3 100%);
 }
 
-.volume {
+.volume-container {
   width: calc(100% - 100px);
   min-width: 120px;
+  overflow: hidden;
+}
+
+.volume {
   background: linear-gradient(to right, #1181A6 0%, #1181A6 40%, #b3b3b3 40%, #b3b3b3 100%);
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.volume-container:hover > .volume,
+.volume-container:focus > .volume,
+.controls__first-line .volume-icon:hover ~ .volume-container .volume,
+.controls__first-line .volume-icon:focus ~ .volume-container .volume {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .timeline::-webkit-slider-thumb,

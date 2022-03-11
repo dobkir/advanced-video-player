@@ -162,9 +162,9 @@ function formatTime(time, hasHours) {
 }
 
 Number.prototype.lead0 = function (digits) {
-  let timer = "" + this
+  let timer = '' + this
   while (timer.length < digits) {
-    timer = "0" + timer
+    timer = '0' + timer
   }
   return timer
 }
