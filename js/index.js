@@ -35,6 +35,8 @@ const playVideoButton = videoFrame.querySelector('.play-video-button')
 /// Controls
 const controlButtons = videoFrame.querySelectorAll('.control-button')
 const controlPlay = videoFrame.querySelector('.play-icon')
+const controlStepBack = videoFrame.querySelector('.step-back-icon')
+const controlStepForward = videoFrame.querySelector('.step-forward-icon')
 const controlVolume = videoFrame.querySelector('.volume-icon')
 const controlFullscreen = videoFrame.querySelector('.fullscreen-icon')
 const timelineBar = videoFrame.querySelector('.timeline')
@@ -54,6 +56,10 @@ playVideoButton.addEventListener('click', toggleVideoPlayback)
 videoPlayer.addEventListener('click', pauseVideo)
 // Click on the playback control button
 controlPlay.addEventListener('click', toggleVideoPlayback)
+// Click on the step back control button
+controlStepBack.addEventListener('click', stepVideoBack)
+// Click on the step forward control button
+controlStepForward.addEventListener('click', stepVideoForward)
 // Click on the volume control button
 controlVolume.addEventListener('click', toggleVolume)
 // When video is ready to play
@@ -98,6 +104,14 @@ function stopVideo() {
   changeOneIconToOther('pause-icon', 'reload-icon')
   videoPlayer.currentTime = videoPlayer.duration
   videoPlayer.pause()
+}
+
+function stepVideoBack() {
+  videoPlayer.currentTime -= 5
+}
+
+function stepVideoForward() {
+  videoPlayer.currentTime += 5
 }
 
 function playSound() {
@@ -173,7 +187,7 @@ function showPlaybackTime() {
   // Determine whether to display the number of hours in the video player?
   hasHours = (videoPlayer.duration / 3600) >= 1.0
   durationTime.textContent = formatTime(videoPlayer.duration, hasHours)
-  currentTime.textContent = formatTime(value, hasHours)
+  currentTime.textContent = formatTime(value = 0, hasHours)
 }
 
 function updateTimelineBar() {

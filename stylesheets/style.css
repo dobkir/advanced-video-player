@@ -643,8 +643,9 @@ ul {
 }
 
 .control-button {
-  width: 36px;
+  min-width: 36px;
   height: 36px;
+  margin: 0 12px;
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
@@ -675,6 +676,14 @@ ul {
   background-image: url("../assets/svg/reload.svg");
 }
 
+.step-back-icon {
+  background-image: url("../assets/svg/step-back.svg");
+}
+
+.step-forward-icon {
+  background-image: url("../assets/svg/step-forward.svg");
+}
+
 .low-volume-icon {
   background-image: url("../assets/svg/volume-low.svg");
 }
@@ -689,6 +698,10 @@ ul {
 
 .mute-icon {
   background-image: url("../assets/svg/mute.svg");
+}
+
+.settings-icon {
+  background-image: url("../assets/svg/cog-2.svg");
 }
 
 .fullscreen-icon {
