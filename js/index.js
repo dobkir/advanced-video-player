@@ -114,10 +114,10 @@ function stepVideoForward() {
   videoPlayer.currentTime += 5
 }
 
-function playSound() {
+function playSound(value) {
   changeOneIconToOther('mute-icon', 'medium-volume-icon')
   videoPlayer.muted = false
-  updateVolumeBar(40)
+  updateVolumeBar(value)
 }
 
 function muteSound() {
@@ -142,7 +142,7 @@ function toggleVideoPlayback() {
 
 function toggleVolume() {
   if (videoPlayer.muted) {
-    playSound()
+    playSound(40)
   } else {
     muteSound()
   }
@@ -217,6 +217,7 @@ function handleProgressBarChanges(event) {
     videoPlayer.currentTime = value * videoPlayer.duration / 100
   }
   if (target === volumeBar) {
+    playSound(value)
     updateVolumeBar(value)
     if (value == 0) {
       if (controlVolume.classList.contains('low-volume-icon')) {
