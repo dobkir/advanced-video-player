@@ -622,7 +622,7 @@ ul {
   height: 50px;
   padding: 0;
   background-color: rgba(143, 227, 255, 0.7);
-  transform: translateY(45px);
+  transform: translateY(43px);
 }
 
 .video-presentation:hover,
@@ -722,7 +722,7 @@ ul {
 .timeline {
   width: 100%;
   min-width: 260px;
-  margin-top: -5px;
+  margin-top: -2px;
   background: linear-gradient(to right, #1181A6 0%, #1181A6 0%, #b3b3b3 0%, #b3b3b3 100%);
 }
 
