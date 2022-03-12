@@ -88,6 +88,7 @@ function playVideo() {
   videoPlayer.play()
   videoFrame.classList.remove('hover')
   changeOneIconToOther('play-icon', 'pause-icon')
+  controlPlay.title = "Pause"
   changeOneIconToOther('reload-icon', 'pause-icon')
   playVideoButton.classList.add('hidden')
 }
@@ -95,6 +96,7 @@ function playVideo() {
 function pauseVideo() {
   videoPlayer.pause()
   changeOneIconToOther('pause-icon', 'play-icon')
+  controlPlay.title = "Play"
   if (playVideoButton.classList.contains('hidden')) {
     playVideoButton.classList.remove('hidden')
   }
@@ -102,6 +104,7 @@ function pauseVideo() {
 
 function stopVideo() {
   changeOneIconToOther('pause-icon', 'reload-icon')
+  controlPlay.title = "Replay"
   videoPlayer.currentTime = videoPlayer.duration
   videoPlayer.pause()
 }
@@ -116,6 +119,7 @@ function stepVideoForward() {
 
 function playSound(value) {
   changeOneIconToOther('mute-icon', 'medium-volume-icon')
+  controlVolume.title = "Mute"
   videoPlayer.muted = false
   updateVolumeBar(value)
 }
@@ -128,6 +132,7 @@ function muteSound() {
   } else if (controlVolume.classList.contains('full-volume-icon')) {
     changeOneIconToOther('full-volume-icon', 'mute-icon')
   }
+  controlVolume.title = "Unmute"
   videoPlayer.muted = true
   updateVolumeBar(0)
 }
@@ -259,11 +264,13 @@ function handleProgressBarChanges(event) {
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     changeOneIconToOther('fullscreen-icon', 'fullscreen-exit-icon')
+    controlFullscreen.title = "Exit fullscreen"
     videoFrame.requestFullscreen().catch(err => {
       alert(`Error to enable fullscreen mode: ${err.message} (${err.name})`)
     })
   } else {
     changeOneIconToOther('fullscreen-exit-icon', 'fullscreen-icon')
+    controlFullscreen.title = "Fullscreen"
     document.exitFullscreen()
   }
 }
