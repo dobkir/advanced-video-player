@@ -18,6 +18,43 @@
   }
 }
 
+.video-settings {
+  position: absolute;
+  right: 8px;
+  bottom: 58px;
+
+  padding: 12px;
+
+  background-color: rgba(#8fe3ff, 0.8);
+}
+
+.video-settings_title {
+  margin: 0;
+}
+
+.playback-speed,
+.step-legth {
+  margin-left: 16px;
+}
+
+.playback-speed_variant,
+.step-legth_variant {
+  position: relative;
+
+  cursor: pointer;
+}
+
+.active-variant {
+  font-weight: bolder;
+  color: $brand-color;
+
+  &::before {
+    content: "✔";
+    left: -20px;
+    position: absolute;
+  }
+}
+
 .video-presentation {
   position: relative;
   display: flex;

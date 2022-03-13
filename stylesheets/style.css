@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .volume-container, .timeline,
 .volume, .control-button, .controls, .play-video-button, .video-presentation, a {
   transition: all 0.4s ease-in-out;
@@ -376,6 +377,7 @@ a:hover, a:focus, a:active {
  */
 ul {
   list-style: none;
+  margin: 0;
   padding: 0;
   color: #ffffff;
 }
@@ -411,6 +413,10 @@ ul {
   .section-title {
     font: normal 700 2rem/2.5rem "Inter-Bold";
   }
+}
+
+.video-settings_title {
+  font: normal 700 1.25rem/2.5rem "Inter-Bold";
 }
 
 .footer {
@@ -531,6 +537,39 @@ ul {
     width: calc(83.3333333333% - 40px);
     margin: 4rem auto 4rem;
   }
+}
+
+.video-settings {
+  position: absolute;
+  right: 8px;
+  bottom: 58px;
+  padding: 12px;
+  background-color: rgba(143, 227, 255, 0.8);
+}
+
+.video-settings_title {
+  margin: 0;
+}
+
+.playback-speed,
+.step-legth {
+  margin-left: 16px;
+}
+
+.playback-speed_variant,
+.step-legth_variant {
+  position: relative;
+  cursor: pointer;
+}
+
+.active-variant {
+  font-weight: bolder;
+  color: #1181A6;
+}
+.active-variant::before {
+  content: "✔";
+  left: -20px;
+  position: absolute;
 }
 
 .video-presentation {

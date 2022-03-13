@@ -12,6 +12,7 @@
 // Воспроизведение и контролы
 // currentTime — текущий момент проигрывания(с.)
 // duration — длительность медиа - контента(с.)
+// playbackRate - скорость воспроизведения (нормальная - 1.0)
 // paused — находится ли воспроизведение на паузе
 // ended — закончилось ли проигрывание
 // muted — включение / выключение звука
@@ -31,6 +32,7 @@
 const videoFrame = document.querySelector('.video-presentation')
 const videoPlayer = videoFrame.querySelector('.video-viewer')
 const playVideoButton = videoFrame.querySelector('.play-video-button')
+let stepLength = 5
 
 /// Controls
 const controlButtons = videoFrame.querySelectorAll('.control-button')
@@ -38,6 +40,10 @@ const controlPlay = videoFrame.querySelector('.play-icon')
 const controlStepBack = videoFrame.querySelector('.step-back-icon')
 const controlStepForward = videoFrame.querySelector('.step-forward-icon')
 const controlVolume = videoFrame.querySelector('.volume-icon')
+const controlVideoSettings = videoFrame.querySelector('.settings-icon')
+const videoSettings = videoFrame.querySelector('.video-settings')
+const playbackSpeedOptionsList = videoSettings.querySelectorAll('.playback-speed_variant')
+const stepLengthsOptionsList = videoSettings.querySelectorAll('.step-legth_variant')
 const controlFullscreen = videoFrame.querySelector('.fullscreen-icon')
 const timelineBar = videoFrame.querySelector('.timeline')
 const currentTime = videoFrame.querySelector('.time__currenttime')
@@ -70,6 +76,10 @@ videoPlayer.addEventListener('timeupdate', updateTimelineBar)
 videoPlayer.addEventListener('ended', endVideoPlayback)
 // Manual value changes on the progress bars
 videoFrame.addEventListener('input', handleProgressBarChanges)
+// Open video settings
+controlVideoSettings.addEventListener('click', toggleSettingsVisibility)
+// Video settings event listener
+videoSettings.addEventListener('click', handleVideoSettings)
 // Switching to full screen mode and back
 controlFullscreen.addEventListener('click', toggleFullscreen)
 
@@ -110,11 +120,11 @@ function stopVideo() {
 }
 
 function stepVideoBack() {
-  videoPlayer.currentTime -= 5
+  videoPlayer.currentTime -= stepLength
 }
 
 function stepVideoForward() {
-  videoPlayer.currentTime += 5
+  videoPlayer.currentTime += stepLength
 }
 
 function playSound(value) {
@@ -221,6 +231,7 @@ function handleProgressBarChanges(event) {
   if (target === timelineBar) {
     videoPlayer.currentTime = value * videoPlayer.duration / 100
   }
+
   if (target === volumeBar) {
     playSound(value)
     updateVolumeBar(value)
@@ -260,7 +271,62 @@ function handleProgressBarChanges(event) {
   }
 }
 
-// Fullscreen
+function toggleSettingsVisibility() {
+  if (videoSettings.classList.contains('hidden')) {
+    videoSettings.classList.remove('hidden')
+  } else {
+    videoSettings.classList.add('hidden')
+  }
+}
+
+function togglePlaybackSpeedActiveLink(targetElem) {
+  playbackSpeedOptionsList.forEach(element => {
+    if (element == targetElem && !element.classList.contains('active-variant')) {
+      element.classList.add('active-variant')
+    } else {
+      element.classList.remove('active-variant')
+    }
+  });
+}
+
+function toggleStepLengthActiveLink(targetElem) {
+  stepLengthsOptionsList.forEach(element => {
+    if (element == targetElem && !element.classList.contains('active-variant')) {
+      element.classList.add('active-variant')
+    } else {
+      element.classList.remove('active-variant')
+    }
+  });
+}
+
+function changeVideoPlaybackSpeed(speed) {
+  return videoPlayer.playbackRate = speed
+}
+
+function changeStepLength(time) {
+  return stepLength = time
+}
+
+function handleVideoSettings(event) {
+  const target = event.target
+
+  if (target.classList.contains('playback-speed_variant')) {
+    let playbackSpeed = target.textContent === 'normal' ? 1 : parseFloat(target.textContent)
+
+    changeVideoPlaybackSpeed(playbackSpeed)
+    togglePlaybackSpeedActiveLink(target)
+  }
+
+  if (target.classList.contains('step-legth_variant')) {
+    let timeInterval = parseInt(target.textContent)
+
+    controlStepBack.title = `Step back ${timeInterval}sec`
+    controlStepForward.title = `Step forward ${timeInterval}sec`
+    changeStepLength(timeInterval)
+    toggleStepLengthActiveLink(target)
+  }
+}
+
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     changeOneIconToOther('fullscreen-icon', 'fullscreen-exit-icon')
