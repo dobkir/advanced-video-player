@@ -23,9 +23,24 @@
   right: 8px;
   bottom: 58px;
 
+  max-height: 80%;
   padding: 12px;
 
   background-color: rgba(#8fe3ff, 0.8);
+
+  overflow-y: auto;
+
+  @include media-tablet-portrait {
+    right: 6px;
+    bottom: 48px;
+
+    padding: 6px;
+  }
+
+  @include media-phone {
+    font-size: 0.6rem;
+    bottom: 38px;
+  }
 }
 
 .video-settings_title {
@@ -35,6 +50,10 @@
 .playback-speed,
 .step-legth {
   margin-left: 16px;
+
+  @include media-tablet-portrait {
+    margin-left: 12px;
+  }
 }
 
 .playback-speed_variant,
@@ -50,8 +69,12 @@
 
   &::before {
     content: "✔";
-    left: -20px;
     position: absolute;
+    left: -20px;
+
+    @include media-tablet-portrait {
+      left: -12px;
+    }
   }
 }
 
@@ -68,21 +91,6 @@
 
   overflow: hidden;
   @extend %transition;
-
-  @include media-desktop {
-    height: calc(100vw / 2.2);
-    background-position: 25% 50%;
-  }
-
-  @include media-tablet-portrait {
-    width: 100%;
-    height: calc(100vw / 1.85);
-  }
-
-  @include media-phone {
-    height: calc(100vw / 1.2);
-    background-position: 25% 50%;
-  }
 }
 
 .play-video-button {
@@ -143,6 +151,18 @@
 
   transform: translateY(43px);
   @extend %transition;
+
+  @include media-tablet-portrait {
+    height: 40px;
+
+    transform: translateY(36px);
+  }
+
+  @include media-phone {
+    height: 30px;
+
+    transform: translateY(26px);
+  }
 }
 
 .video-presentation:hover,
@@ -160,6 +180,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
+
+  @include media-tablet-portrait {
+    padding: 0 8px;
+  }
+
+  @include media-phone {
+    padding: 0 6px;
+  }
 }
 
 .control-button {
@@ -176,9 +204,16 @@
 
   @extend %transition;
 
-   @include media-tablet-portrait {
-    width: 30px;
-    height: 30px;
+  @include media-tablet-portrait {
+    min-width: 26px;
+    height: 26px;
+    margin: 0 8px 0 0;
+  }
+
+  @include media-phone {
+    min-width: 18px;
+    height: 18px;
+    margin: 0 6px 0 0;
   }
 }
 
@@ -242,6 +277,10 @@
 
   @extend %transition;
   -webkit-appearance: none;
+
+  @include media-tablet-portrait {
+    height: 6px;
+  }
 }
 
 .timeline {
@@ -256,14 +295,27 @@
     $lines-color 0%,
     $lines-color 100%
   );
+
+  @include media-tablet-portrait {
+    margin-top: -4px;
+  }
 }
 
 .volume-container {
-  width: calc(100% - 100px);
-  min-width: 120px;
+  display: flex;
+  align-items: center;
+  width: 120px;
   overflow: hidden;
 
   @extend %transition;
+
+  @include media-tablet-portrait {
+    width: 90px;
+  }
+
+  @include media-phone {
+    width: 75px;
+  }
 }
 
 .volume {
@@ -293,12 +345,25 @@
   width: 20px;
   height: 20px;
 
- background: $brand-color;
+  background: $brand-color;
   border-radius: 50%;
   -webkit-appearance: none;
   cursor: ew-resize;
+
+  @include media-tablet-portrait {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .time {
-  margin: auto 12px;
+  margin: 0 12px;
+
+  @include media-tablet-portrait {
+    margin: 0 8px 0 0;
+  }
+
+  @include media-phone {
+    margin: 0 6px 0 0;
+  }
 }

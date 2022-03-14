@@ -415,8 +415,37 @@ ul {
   }
 }
 
+@media (max-width: 768px) {
+  .video-settings {
+    font: normal 400 0.8rem/1.2rem "Inter-Regular";
+  }
+}
+
 .video-settings_title {
   font: normal 700 1.25rem/2.5rem "Inter-Bold";
+}
+@media (max-width: 768px) {
+  .video-settings_title {
+    font: normal 700 1rem/1.5rem "Inter-Bold";
+  }
+}
+@media (max-width: 480px) {
+  .video-settings_title {
+    font-size: 0.6rem;
+    line-height: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .time {
+    font: normal 400 0.8rem/1.2rem "Inter-Regular";
+  }
+}
+@media (max-width: 480px) {
+  .time {
+    font-size: 0.6rem;
+    line-height: 0.8rem;
+  }
 }
 
 .footer {
@@ -543,8 +572,23 @@ ul {
   position: absolute;
   right: 8px;
   bottom: 58px;
+  max-height: 80%;
   padding: 12px;
   background-color: rgba(143, 227, 255, 0.8);
+  overflow-y: auto;
+}
+@media (max-width: 768px) {
+  .video-settings {
+    right: 6px;
+    bottom: 48px;
+    padding: 6px;
+  }
+}
+@media (max-width: 480px) {
+  .video-settings {
+    font-size: 0.6rem;
+    bottom: 38px;
+  }
 }
 
 .video-settings_title {
@@ -554,6 +598,12 @@ ul {
 .playback-speed,
 .step-legth {
   margin-left: 16px;
+}
+@media (max-width: 768px) {
+  .playback-speed,
+.step-legth {
+    margin-left: 12px;
+  }
 }
 
 .playback-speed_variant,
@@ -568,8 +618,13 @@ ul {
 }
 .active-variant::before {
   content: "✔";
-  left: -20px;
   position: absolute;
+  left: -20px;
+}
+@media (max-width: 768px) {
+  .active-variant::before {
+    left: -12px;
+  }
 }
 
 .video-presentation {
@@ -582,24 +637,6 @@ ul {
   height: 100%;
   margin: 0 auto;
   overflow: hidden;
-}
-@media (max-width: 1199px) {
-  .video-presentation {
-    height: 45.4545454545vw;
-    background-position: 25% 50%;
-  }
-}
-@media (max-width: 768px) {
-  .video-presentation {
-    width: 100%;
-    height: 54.0540540541vw;
-  }
-}
-@media (max-width: 480px) {
-  .video-presentation {
-    height: 83.3333333333vw;
-    background-position: 25% 50%;
-  }
 }
 
 .play-video-button {
@@ -663,6 +700,18 @@ ul {
   background-color: rgba(143, 227, 255, 0.7);
   transform: translateY(43px);
 }
+@media (max-width: 768px) {
+  .controls {
+    height: 40px;
+    transform: translateY(36px);
+  }
+}
+@media (max-width: 480px) {
+  .controls {
+    height: 30px;
+    transform: translateY(26px);
+  }
+}
 
 .video-presentation:hover,
 .video-presentation.hover {
@@ -680,6 +729,18 @@ ul {
   justify-content: space-between;
   padding: 0 12px;
 }
+@media (max-width: 768px) {
+  .controls__first-line,
+.controls__second-line {
+    padding: 0 8px;
+  }
+}
+@media (max-width: 480px) {
+  .controls__first-line,
+.controls__second-line {
+    padding: 0 6px;
+  }
+}
 
 .control-button {
   min-width: 36px;
@@ -694,8 +755,16 @@ ul {
 }
 @media (max-width: 768px) {
   .control-button {
-    width: 30px;
-    height: 30px;
+    min-width: 26px;
+    height: 26px;
+    margin: 0 8px 0 0;
+  }
+}
+@media (max-width: 480px) {
+  .control-button {
+    min-width: 18px;
+    height: 18px;
+    margin: 0 6px 0 0;
   }
 }
 
@@ -757,6 +826,12 @@ ul {
   outline: none;
   -webkit-appearance: none;
 }
+@media (max-width: 768px) {
+  .timeline,
+.volume {
+    height: 6px;
+  }
+}
 
 .timeline {
   width: 100%;
@@ -764,11 +839,27 @@ ul {
   margin-top: -2px;
   background: linear-gradient(to right, #1181A6 0%, #1181A6 0%, #b3b3b3 0%, #b3b3b3 100%);
 }
+@media (max-width: 768px) {
+  .timeline {
+    margin-top: -4px;
+  }
+}
 
 .volume-container {
-  width: calc(100% - 100px);
-  min-width: 120px;
+  display: flex;
+  align-items: center;
+  width: 120px;
   overflow: hidden;
+}
+@media (max-width: 768px) {
+  .volume-container {
+    width: 90px;
+  }
+}
+@media (max-width: 480px) {
+  .volume-container {
+    width: 75px;
+  }
 }
 
 .volume {
@@ -794,9 +885,26 @@ ul {
   -webkit-appearance: none;
   cursor: ew-resize;
 }
+@media (max-width: 768px) {
+  .timeline::-webkit-slider-thumb,
+.volume::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+  }
+}
 
 .time {
-  margin: auto 12px;
+  margin: 0 12px;
+}
+@media (max-width: 768px) {
+  .time {
+    margin: 0 8px 0 0;
+  }
+}
+@media (max-width: 480px) {
+  .time {
+    margin: 0 6px 0 0;
+  }
 }
 
 .footer {

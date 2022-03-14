@@ -16,8 +16,36 @@
   }
 }
 
+.video-settings {
+
+  @include media-tablet-portrait {
+    font: $text-mobile-font;
+  }
+}
+
 .video-settings_title {
   font: $text-bold-font;
+
+  @include media-tablet-portrait {
+    font: $text-bold-mobile-font;
+  }
+
+  @include media-phone {
+    font-size: 0.6rem;
+    line-height: 0.8rem;
+  }
+}
+
+.time {
+
+  @include media-tablet-portrait {
+    font: $text-mobile-font;
+  }
+
+  @include media-phone {
+    font-size: 0.6rem;
+    line-height: 0.8rem;
+  }
 }
 
 .footer {
