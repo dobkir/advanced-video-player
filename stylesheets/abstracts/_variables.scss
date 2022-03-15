@@ -33,5 +33,7 @@ $max-width: 1440px !default;
 
 /// Video playback controls
 /// @type Length
-$slider-thumb-size: 20px !default;
+$line-height: 8px;
+$line-mobile-height: 6px;
+$slider-thumb-size: 16px !default;
 $slider-thumb-mobile-size: 12px !default;

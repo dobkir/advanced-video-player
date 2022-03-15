@@ -147,7 +147,7 @@
   height: 50px;
   padding: 0;
 
-  background-color: rgba($bg-color, 0.3);
+  background-color: transparent;
 
   transform: translateY(43px);
   @extend %transition;
@@ -271,30 +271,23 @@
 
 .timeline,
 .volume {
-  height: 10px;
+  height: $line-height;
 
   outline: none;
 
   @extend %transition;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 
   @include media-tablet-portrait {
-    height: 6px;
+    height: $line-mobile-height;
   }
 }
 
 .timeline {
   width: 100%;
   min-width: 260px;
-  margin-top: -2px;
-
-  background: linear-gradient(
-    to right,
-    $brand-color 0%,
-    $brand-color 0%,
-    $lines-color 0%,
-    $lines-color 100%
-  );
 
   @include media-tablet-portrait {
     margin-top: -4px;
@@ -349,6 +342,8 @@
   background: $brand-color;
   border-radius: 50%;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   cursor: ew-resize;
 
   @include media-tablet-portrait {
