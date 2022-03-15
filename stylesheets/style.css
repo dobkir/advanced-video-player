@@ -838,11 +838,27 @@ ul {
 .timeline {
   width: 100%;
   min-width: 260px;
+  background-color: #b3b3b3;
+  cursor: pointer;
+  caret-color: blue;
 }
 @media (max-width: 768px) {
   .timeline {
     margin-top: -4px;
   }
+}
+
+.timeline:hover + .timeline-tooltip {
+  display: block;
+}
+
+.timeline-tooltip {
+  position: absolute;
+  left: 0;
+  top: -50px;
+  display: none;
+  padding: 0 6px;
+  background-color: rgba(17, 129, 166, 0.6);
 }
 
 .volume-container {

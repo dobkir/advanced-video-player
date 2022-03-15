@@ -46,8 +46,9 @@ const playbackSpeedOptionsList = videoSettings.querySelectorAll('.playback-speed
 const stepLengthsOptionsList = videoSettings.querySelectorAll('.step-legth_variant')
 const controlFullscreen = videoFrame.querySelector('.fullscreen-icon')
 const timelineBar = videoFrame.querySelector('.timeline')
-const currentTime = videoFrame.querySelector('.time__currenttime')
-const durationTime = videoFrame.querySelector('.time__duration')
+const timelineTooltip = document.querySelector('.timeline-tooltip')
+const currentTimeOutput = videoFrame.querySelector('.time__currenttime')
+const durationTimeOutput = videoFrame.querySelector('.time__duration')
 const volumeBar = videoFrame.querySelector('.volume')
 
 /// Predicates
@@ -72,6 +73,8 @@ controlVolume.addEventListener('click', toggleVolume)
 videoPlayer.addEventListener('canplay', showPlaybackTime)
 // Update the position on a timeline
 videoPlayer.addEventListener('timeupdate', updateTimelineBar)
+// Show current time tooltip moving the mouse on the timeline
+timelineBar.addEventListener('mousemove', updateTimelineTooltip)
 // Actions on video end event
 videoPlayer.addEventListener('ended', endVideoPlayback)
 // Manual value changes on the progress bars
@@ -201,8 +204,8 @@ Number.prototype.lead0 = function (digits) {
 function showPlaybackTime() {
   // Determine whether to display the number of hours in the video player?
   hasHours = (videoPlayer.duration / 3600) >= 1.0
-  durationTime.textContent = formatTime(videoPlayer.duration, hasHours)
-  currentTime.textContent = formatTime(value = 0, hasHours)
+  durationTimeOutput.textContent = formatTime(videoPlayer.duration, hasHours)
+  currentTimeOutput.textContent = formatTime(value = 0, hasHours)
 }
 
 function updateTimelineBar() {
@@ -211,7 +214,15 @@ function updateTimelineBar() {
   let value = (videoCurrentTime * 100 / videoTotalLength) || 0
   updateProgressBar(timelineBar, value)
 
-  currentTime.textContent = formatTime(videoCurrentTime, hasHours)
+  currentTimeOutput.textContent = formatTime(videoCurrentTime, hasHours)
+}
+
+function updateTimelineTooltip(event) {
+  const timePoint = Math.round((event.offsetX / event.target.clientWidth) * videoPlayer.duration)
+  timelineBar.setAttribute('data-time-point', timePoint)
+  timelineTooltip.textContent = formatTime(timePoint, hasHours)
+  const rect = videoPlayer.getBoundingClientRect()
+  timelineTooltip.style.left = `${event.pageX - rect.left}px`
 }
 
 function updateVolumeBar(value) {

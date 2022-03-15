@@ -289,9 +289,23 @@
   width: 100%;
   min-width: 260px;
 
-  @include media-tablet-portrait {
-    margin-top: -4px;
-  }
+  background-color: $lines-color;
+  cursor: pointer;
+}
+
+.timeline:hover+.timeline-tooltip {
+  display: block;
+}
+
+.timeline-tooltip {
+  position: absolute;
+  left: 0;
+  top: -50px;
+
+  display: none;
+  padding: 0 6px;
+
+  background-color: rgba($brand-color, 0.6);
 }
 
 .volume-container {
