@@ -147,7 +147,7 @@
   height: 50px;
   padding: 0;
 
-  background-color: rgba($bg-color, 0.7);
+  background-color: rgba($bg-color, 0.3);
 
   transform: translateY(43px);
   @extend %transition;
@@ -304,6 +304,7 @@
 .volume-container {
   display: flex;
   align-items: center;
+  height: $slider-thumb-size;
   width: 120px;
   overflow: hidden;
 
@@ -342,8 +343,8 @@
 
 .timeline::-webkit-slider-thumb,
 .volume::-webkit-slider-thumb {
-  width: 20px;
-  height: 20px;
+  width: $slider-thumb-size;
+  height: $slider-thumb-size;
 
   background: $brand-color;
   border-radius: 50%;
@@ -351,8 +352,8 @@
   cursor: ew-resize;
 
   @include media-tablet-portrait {
-    width: 12px;
-    height: 12px;
+    width: $slider-thumb-mobile-size;
+    height: $slider-thumb-mobile-size;
   }
 }
 
