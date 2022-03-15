@@ -33,8 +33,8 @@ The site has a responsive design and is adapted for devices with different scree
 ![Main language][main-language-shield]
 
 - Others<br>
-![JavaScript](https://img.shields.io/badge/JavaScript-40.7%25-f1e05a?logo=JavaScript&logoColor=f1e05a&style=for-the-badge)<br>
-![HTML5](https://img.shields.io/badge/HTML5-16.2%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-40.9%25-f1e05a?logo=JavaScript&logoColor=f1e05a&style=for-the-badge)<br>
+![HTML5](https://img.shields.io/badge/HTML5-15.8%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
 
 - IDE<br>
 ![VSCode](https://img.icons8.com/color/48/000000/visual-studio-code-2019.png)<br>
