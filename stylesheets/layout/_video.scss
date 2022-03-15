@@ -1,4 +1,6 @@
 .container-video {
+  @extend %cursor-default;
+
   >.section-title {
     margin: 1.25rem auto;
   }
@@ -60,7 +62,7 @@
 .step-legth_variant {
   position: relative;
 
-  cursor: pointer;
+  @extend %cursor-pointer;
 }
 
 .active-variant {
@@ -108,7 +110,7 @@
   @include mask("../assets/svg/play-button-for-video-player.svg");
   border-radius: 50%;
   border-color: transparent;
-  cursor: pointer;
+  @extend %cursor-pointer;
 
   @extend %transition;
 
@@ -200,7 +202,7 @@
   background-repeat: no-repeat;
   background-color: transparent;
   border-color: transparent;
-  cursor: pointer;
+  @extend %cursor-pointer;
 
   @extend %transition;
 
@@ -273,6 +275,7 @@
 .volume {
   height: $line-height;
 
+  @extend %cursor-pointer;
   outline: none;
 
   @extend %transition;
@@ -290,7 +293,6 @@
   min-width: 260px;
 
   background-color: $lines-color;
-  cursor: pointer;
 }
 
 .timeline:hover+.timeline-tooltip {

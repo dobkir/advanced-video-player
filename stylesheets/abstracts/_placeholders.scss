@@ -27,3 +27,11 @@
   display: flex;
   justify-content: center;
 }
+
+%cursor-pointer {
+  cursor: url('../assets/svg/hand-cursor.svg'), pointer;
+}
+
+%cursor-default {
+  cursor: url('../assets/svg/arrow-cursor.svg'), pointer;
+}

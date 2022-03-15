@@ -10,6 +10,16 @@
   align-items: center;
 }
 
+.timeline,
+.volume, .control-button, .play-video-button, .playback-speed_variant,
+.step-legth_variant {
+  cursor: url("../assets/svg/hand-cursor.svg"), pointer;
+}
+
+.container-video {
+  cursor: url("../assets/svg/arrow-cursor.svg"), pointer;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -609,7 +619,6 @@ ul {
 .playback-speed_variant,
 .step-legth_variant {
   position: relative;
-  cursor: pointer;
 }
 
 .active-variant {
@@ -658,7 +667,6 @@ ul {
   mask-size: cover;
   border-radius: 50%;
   border-color: transparent;
-  cursor: pointer;
 }
 .play-video-button:hover, .play-video-button:focus {
   background-color: #1181A6;
@@ -751,7 +759,6 @@ ul {
   background-repeat: no-repeat;
   background-color: transparent;
   border-color: transparent;
-  cursor: pointer;
 }
 @media (max-width: 768px) {
   .control-button {
@@ -839,13 +846,6 @@ ul {
   width: 100%;
   min-width: 260px;
   background-color: #b3b3b3;
-  cursor: pointer;
-  caret-color: blue;
-}
-@media (max-width: 768px) {
-  .timeline {
-    margin-top: -4px;
-  }
 }
 
 .timeline:hover + .timeline-tooltip {
