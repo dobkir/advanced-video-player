@@ -222,7 +222,7 @@ function updateTimelineTooltip(event) {
   timelineBar.setAttribute('data-time-point', timePoint)
   timelineTooltip.textContent = formatTime(timePoint, hasHours)
   const rect = videoPlayer.getBoundingClientRect()
-  timelineTooltip.style.left = `${event.pageX - rect.left}px`
+  timelineTooltip.style.left = `${event.pageX - rect.left - 16}px`
 }
 
 function updateVolumeBar(value) {

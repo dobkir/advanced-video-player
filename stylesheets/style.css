@@ -20,6 +20,14 @@
   cursor: url("../assets/svg/arrow-cursor.svg"), pointer;
 }
 
+.timeline::-webkit-slider-thumb,
+.volume::-webkit-slider-thumb, .timeline,
+.volume {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -559,7 +567,7 @@ ul {
   }
 }
 
-.container-video > .section-title {
+.container-video np > .section-title {
   margin: 1.25rem auto;
 }
 @media (max-width: 768px) {
@@ -831,9 +839,6 @@ ul {
 .volume {
   height: 8px;
   outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 @media (max-width: 768px) {
   .timeline,
@@ -899,9 +904,6 @@ ul {
   height: 16px;
   background: #1181A6;
   border-radius: 50%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   cursor: ew-resize;
 }
 @media (max-width: 768px) {

@@ -1,5 +1,5 @@
 .container-video {
-  @extend %cursor-default;
+  @extend %cursor-default;np
 
   >.section-title {
     margin: 1.25rem auto;
@@ -279,9 +279,7 @@
   outline: none;
 
   @extend %transition;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  @extend %clear-browser-styles;
 
   @include media-tablet-portrait {
     height: $line-mobile-height;
@@ -357,9 +355,7 @@
 
   background: $brand-color;
   border-radius: 50%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  @extend %clear-browser-styles;
   cursor: ew-resize;
 
   @include media-tablet-portrait {

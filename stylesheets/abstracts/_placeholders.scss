@@ -35,3 +35,9 @@
 %cursor-default {
   cursor: url('../assets/svg/arrow-cursor.svg'), pointer;
 }
+
+%clear-browser-styles {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
