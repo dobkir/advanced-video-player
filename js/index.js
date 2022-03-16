@@ -51,9 +51,6 @@ const currentTimeOutput = videoFrame.querySelector('.time__currenttime')
 const durationTimeOutput = videoFrame.querySelector('.time__duration')
 const volumeBar = videoFrame.querySelector('.volume')
 
-/// Predicates
-let hasHours = false
-
 
 /// Events
 
@@ -172,40 +169,16 @@ function endVideoPlayback() {
 }
 
 // Convert seconds to hh:mm:ss or mm:ss format
-function formatTime(time, hasHours) {
-  let hours = 0
-  let minutes = 0
-  let seconds = 0
-
-  if (hasHours) {
-    hours = Math.floor(time / 3600)
-    time = time - hours * 3600
-
-    minutes = Math.floor(time / 60)
-    seconds = Math.floor(time % 60)
-
-    return `${hours.lead0(2)}:${minutes.lead0(2)}:${seconds.lead0(2)}`
-  } else {
-    minutes = Math.floor(time / 60)
-    seconds = Math.floor(time % 60)
-
-    return `${minutes.lead0(2)}:${seconds.lead0(2)}`
-  }
-}
-
-Number.prototype.lead0 = function (digits) {
-  let timer = '' + this
-  while (timer.length < digits) {
-    timer = '0' + timer
-  }
-  return timer
+function formatTime(time) {
+  const seconds = (time = Math.trunc(time)) % 60
+  const minutes = Math.trunc(time / 60) % 60
+  const hours = Math.trunc(time / 60 / 60)
+  return `${hours ? `${hours}:` : ""}${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
 }
 
 function showPlaybackTime() {
-  // Determine whether to display the number of hours in the video player?
-  hasHours = (videoPlayer.duration / 3600) >= 1.0
-  durationTimeOutput.textContent = formatTime(videoPlayer.duration, hasHours)
-  currentTimeOutput.textContent = formatTime(value = 0, hasHours)
+  durationTimeOutput.textContent = formatTime(videoPlayer.duration)
+  currentTimeOutput.textContent = formatTime(value = 0)
 }
 
 function updateTimelineBar() {
@@ -214,13 +187,13 @@ function updateTimelineBar() {
   let value = (videoCurrentTime * 100 / videoTotalLength) || 0
   updateProgressBar(timelineBar, value)
 
-  currentTimeOutput.textContent = formatTime(videoCurrentTime, hasHours)
+  currentTimeOutput.textContent = formatTime(videoCurrentTime)
 }
 
 function updateTimelineTooltip(event) {
   const timePoint = Math.round((event.offsetX / event.target.clientWidth) * videoPlayer.duration)
   timelineBar.setAttribute('data-time-point', timePoint)
-  timelineTooltip.textContent = formatTime(timePoint, hasHours)
+  timelineTooltip.textContent = formatTime(timePoint)
   const rect = videoPlayer.getBoundingClientRect()
   timelineTooltip.style.left = `${event.pageX - rect.left - 16}px`
 }
