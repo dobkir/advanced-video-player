@@ -1,4 +1,4 @@
-///Tutorial for the educational project. Delete in the working project.
+///Tutorial in Russian for the educational project. Delete in the working project.
 
 // width и height — ширина и высота контейнера для проигрывания видео;
 // videoWidth и videoHeight — внутреннее значение ширины и высоты видео, если размеры не известны, равны 0;
@@ -20,19 +20,25 @@
 // play() — начать проигрывание
 // pause() — поставить на паузу
 
-// События
+// События (Events)
 // oncanplay — можно начать проигрывание
 // ontimeupdate — изменена позиция проигрывания
 // onplay — запущено проигрыв
 // onpause — нажата пауза
 // onended — воспроизведение закончилось
+// onloadeddata - событие запускается, когда кадр в текущей позиции
+// воспроизведения мультимедиа закончил загрузку; часто первый кадр.
+// (использовал здесь для вывода миниатюр кадров при наведении мыши на прогресс-бар)
 
 
 /// General variables
 const videoFrame = document.querySelector('.video-presentation')
 const videoPlayer = videoFrame.querySelector('.video-viewer')
 const playVideoButton = videoFrame.querySelector('.play-video-button')
-let stepLength = 5
+
+const videoThumbnails = []
+let skipStepLength = 5
+
 
 /// Controls
 const controlButtons = videoFrame.querySelectorAll('.control-button')
@@ -46,7 +52,9 @@ const playbackSpeedOptionsList = videoSettings.querySelectorAll('.playback-speed
 const stepLengthsOptionsList = videoSettings.querySelectorAll('.step-legth_variant')
 const controlFullscreen = videoFrame.querySelector('.fullscreen-icon')
 const timelineBar = videoFrame.querySelector('.timeline')
-const timelineTooltip = document.querySelector('.timeline-tooltip')
+const timelineTooltip = videoFrame.querySelector('.timeline-tooltip')
+const timelineTooltipImg = videoFrame.querySelector('.timeline-tooltip-img')
+const timelineTooltipTime = videoFrame.querySelector('.timeline-tooltip-time')
 const currentTimeOutput = videoFrame.querySelector('.time__currenttime')
 const durationTimeOutput = videoFrame.querySelector('.time__duration')
 const volumeBar = videoFrame.querySelector('.volume')
@@ -54,6 +62,8 @@ const volumeBar = videoFrame.querySelector('.volume')
 
 /// Events
 
+// Preload timeline tooltip thumbnail snapshots
+videoPlayer.addEventListener('canplay', preloadVideoThumbnails)
 // Click on the big play button
 playVideoButton.addEventListener('click', toggleVideoPlayback)
 // Click on the video viewer area
@@ -82,6 +92,7 @@ controlVideoSettings.addEventListener('click', toggleSettingsVisibility)
 videoSettings.addEventListener('click', handleVideoSettings)
 // Switching to full screen mode and back
 controlFullscreen.addEventListener('click', toggleFullscreen)
+
 
 /// Functions
 
@@ -120,11 +131,11 @@ function stopVideo() {
 }
 
 function stepVideoBack() {
-  videoPlayer.currentTime -= stepLength
+  videoPlayer.currentTime -= skipStepLength
 }
 
 function stepVideoForward() {
-  videoPlayer.currentTime += stepLength
+  videoPlayer.currentTime += skipStepLength
 }
 
 function playSound(value) {
@@ -168,7 +179,7 @@ function endVideoPlayback() {
   videoFrame.classList.add('hover')
 }
 
-// Convert seconds to hh:mm:ss or mm:ss format
+// Convert seconds to h:mm:ss or mm:ss format
 function formatTime(time) {
   const seconds = (time = Math.trunc(time)) % 60
   const minutes = Math.trunc(time / 60) % 60
@@ -190,12 +201,59 @@ function updateTimelineBar() {
   currentTimeOutput.textContent = formatTime(videoCurrentTime)
 }
 
+function preloadVideoThumbnails() {
+  const videoTemporaryCopy = videoPlayer.cloneNode(true)
+  document.body.appendChild(videoTemporaryCopy)
+  videoTemporaryCopy.style.display = "none"
+
+  let videoThumbnailsInterval = videoPlayer.duration < 120 ? 1 :
+    videoPlayer.duration < 300 ? 2 :
+      videoPlayer.duration < 600 ? 3 :
+        5
+  const thumbnailWidth = 120
+  const thumbnailHeight = 70
+
+  videoTemporaryCopy.addEventListener(
+    'loadeddata',
+    async function setThumbs() {
+      for (let i = 0; i <= videoTemporaryCopy.duration; i = i + (videoThumbnailsInterval)) {
+        const canvas = document.createElement('canvas')
+        canvas.width = thumbnailWidth
+        canvas.height = thumbnailHeight
+
+        const context = canvas.getContext('2d')
+        videoTemporaryCopy.currentTime = i
+
+        await new Promise(function (resolve) {
+          const event = function () {
+            context?.drawImage(videoTemporaryCopy, 0, 0, thumbnailWidth, thumbnailHeight)
+            const url = canvas.toDataURL('image/jpeg')
+            videoThumbnails.push({ sec: i, url })
+            videoTemporaryCopy.removeEventListener('canplay', event)
+            resolve(null)
+          }
+          videoTemporaryCopy.addEventListener('canplay', event)
+        })
+      }
+      setTimeout(() => document.body.removeChild(videoTemporaryCopy))
+      console.log('video thumbnails loaded')
+    }, false
+  )
+}
+
 function updateTimelineTooltip(event) {
   const timePoint = Math.round((event.offsetX / event.target.clientWidth) * videoPlayer.duration)
   timelineBar.setAttribute('data-time-point', timePoint)
-  timelineTooltip.textContent = formatTime(timePoint)
+  timelineTooltipTime.textContent = formatTime(timePoint)
   const rect = videoPlayer.getBoundingClientRect()
-  timelineTooltip.style.left = `${event.pageX - rect.left - 16}px`
+  timelineTooltip.style.left = `${event.pageX - rect.left - 40}px`
+
+  videoThumbnails.forEach(element => {
+    if (element.sec === timePoint) {
+      timelineTooltipImg.style.background = `url(${element.url}) 50% 50% no-repeat`
+      timelineTooltipImg.style.backgroundSize = "cover"
+    }
+  })
 }
 
 function updateVolumeBar(value) {
@@ -287,8 +345,8 @@ function changeVideoPlaybackSpeed(speed) {
   return videoPlayer.playbackRate = speed
 }
 
-function changeStepLength(time) {
-  return stepLength = time
+function changeSkipStepLength(time) {
+  return skipStepLength = time
 }
 
 function handleVideoSettings(event) {
@@ -306,7 +364,7 @@ function handleVideoSettings(event) {
 
     controlStepBack.title = `Step back ${timeInterval}sec`
     controlStepForward.title = `Step forward ${timeInterval}sec`
-    changeStepLength(timeInterval)
+    changeSkipStepLength(timeInterval)
     toggleStepLengthActiveLink(target)
   }
 }
@@ -324,3 +382,22 @@ function toggleFullscreen() {
     document.exitFullscreen()
   }
 }
+
+
+///////////////////////////////////////// FRAME SPRITE //////////////////////////////////////////////////
+// loadFrameSprite = () => {
+//   const {
+//     width,
+//     height,
+//     src
+//   } = this.options.frameSprite,
+//     img = document.createElement("img");
+//   img.src = src, img.addEventListener("load", () => {
+//     this.progressBarTooltip.style.width = `${width}px`,
+//       this.progressBarTooltip.style.top = `-${height + 16}px`,
+//       this.progressBarTooltipBg.style.height = `${height}px`,
+//       this.progressBarTooltipBg.style.backgroundImage = `url(${src})`,
+//       this.frameOverlayBg.style.backgroundImage = `url(${src})`;
+//   });
+// };
+
