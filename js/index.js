@@ -1,41 +1,8 @@
-///Tutorial in Russian for the educational project. Delete in the working project.
-
-// width и height — ширина и высота контейнера для проигрывания видео;
-// videoWidth и videoHeight — внутреннее значение ширины и высоты видео, если размеры не известны, равны 0;
-// poster — ссылка на картинку, которую можно показывать, пока видео недоступно(обычно это один
-// из первых непустых кадров).
-
-// Состояние сети и готовность к работе
-// src — ссылка(url) на воспроизводимый контент
-// buffered — буферизованные куски видео
-
-// Воспроизведение и контролы
-// currentTime — текущий момент проигрывания(с.)
-// duration — длительность медиа - контента(с.)
-// playbackRate - скорость воспроизведения (нормальная - 1.0)
-// paused — находится ли воспроизведение на паузе
-// ended — закончилось ли проигрывание
-// muted — включение / выключение звука
-// volume — уровень звука[0, 1]
-// play() — начать проигрывание
-// pause() — поставить на паузу
-
-// События (Events)
-// oncanplay — можно начать проигрывание
-// ontimeupdate — изменена позиция проигрывания
-// onplay — запущено проигрыв
-// onpause — нажата пауза
-// onended — воспроизведение закончилось
-// onloadeddata - событие запускается, когда кадр в текущей позиции
-// воспроизведения мультимедиа закончил загрузку; часто первый кадр.
-// (использовал здесь для вывода миниатюр кадров при наведении мыши на прогресс-бар)
-
-
+'use strict'
 /// General variables
 const videoFrame = document.querySelector('.video-presentation')
 const videoPlayer = videoFrame.querySelector('.video-viewer')
 const playVideoButton = videoFrame.querySelector('.play-video-button')
-
 const videoThumbnails = []
 let skipStepLength = 5
 
@@ -103,6 +70,46 @@ function changeOneIconToOther(changeableIcon = '', currentIcon = '') {
       button.classList.add(currentIcon)
     }
   })
+}
+
+function preloadVideoThumbnails() {
+  const videoTemporaryCopy = videoPlayer.cloneNode(true)
+  document.body.appendChild(videoTemporaryCopy)
+  videoTemporaryCopy.style.display = "none"
+
+  let videoThumbnailsInterval = videoPlayer.duration < 120 ? 1 :
+    videoPlayer.duration < 300 ? 2 :
+      videoPlayer.duration < 600 ? 3 :
+        5
+  const thumbnailWidth = 120
+  const thumbnailHeight = 70
+
+  videoTemporaryCopy.addEventListener(
+    'loadeddata',
+    async function setThumbs() {
+      for (let i = 0; i <= videoTemporaryCopy.duration; i = i + (videoThumbnailsInterval)) {
+        const canvas = document.createElement('canvas')
+        canvas.width = thumbnailWidth
+        canvas.height = thumbnailHeight
+
+        const context = canvas.getContext('2d')
+        videoTemporaryCopy.currentTime = i
+
+        await new Promise(function (resolve) {
+          const event = function () {
+            context?.drawImage(videoTemporaryCopy, 0, 0, thumbnailWidth, thumbnailHeight)
+            const url = canvas.toDataURL('image/jpeg')
+            videoThumbnails.push({ sec: i, url })
+            videoTemporaryCopy.removeEventListener('canplay', event)
+            resolve()
+          }
+          videoTemporaryCopy.addEventListener('canplay', event)
+        })
+      }
+      setTimeout(() => document.body.removeChild(videoTemporaryCopy))
+      console.log('video thumbnails loaded')
+    }, false
+  )
 }
 
 function playVideo() {
@@ -174,6 +181,42 @@ function toggleVolume() {
   }
 }
 
+function toggleVolumeControlView(value) {
+  if (value == 0) {
+    if (controlVolume.classList.contains('low-volume-icon')) {
+      changeOneIconToOther('low-volume-icon', 'mute-icon')
+    } else if (controlVolume.classList.contains('medium-volume-icon')) {
+      changeOneIconToOther('medium-volume-icon', 'mute-icon')
+    } else if (controlVolume.classList.contains('full-volume-icon')) {
+      changeOneIconToOther('full-volume-icon', 'mute-icon')
+    }
+  } else if (value < 33.3) {
+    if (controlVolume.classList.contains('mute-icon')) {
+      changeOneIconToOther('mute-icon', 'low-volume-icon')
+    } else if (controlVolume.classList.contains('medium-volume-icon')) {
+      changeOneIconToOther('medium-volume-icon', 'low-volume-icon')
+    } else if (controlVolume.classList.contains('full-volume-icon')) {
+      changeOneIconToOther('full-volume-icon', 'low-volume-icon')
+    }
+  } else if (value < 66.6) {
+    if (controlVolume.classList.contains('mute-icon')) {
+      changeOneIconToOther('mute-icon', 'medium-volume-icon')
+    } else if (controlVolume.classList.contains('low-volume-icon')) {
+      changeOneIconToOther('low-volume-icon', 'medium-volume-icon')
+    } else if (controlVolume.classList.contains('full-volume-icon')) {
+      changeOneIconToOther('full-volume-icon', 'medium-volume-icon')
+    }
+  } else if (value <= 100) {
+    if (controlVolume.classList.contains('mute-icon')) {
+      changeOneIconToOther('mute-icon', 'full-volume-icon')
+    } else if (controlVolume.classList.contains('low-volume-icon')) {
+      changeOneIconToOther('low-volume-icon', 'full-volume-icon')
+    } else if (controlVolume.classList.contains('medium-volume-icon')) {
+      changeOneIconToOther('medium-volume-icon', 'full-volume-icon')
+    }
+  }
+}
+
 function endVideoPlayback() {
   stopVideo()
   videoFrame.classList.add('hover')
@@ -188,8 +231,8 @@ function formatTime(time) {
 }
 
 function showPlaybackTime() {
+  currentTimeOutput.textContent = formatTime(videoPlayer.currentTime)
   durationTimeOutput.textContent = formatTime(videoPlayer.duration)
-  currentTimeOutput.textContent = formatTime(value = 0)
 }
 
 function updateTimelineBar() {
@@ -201,57 +244,16 @@ function updateTimelineBar() {
   currentTimeOutput.textContent = formatTime(videoCurrentTime)
 }
 
-function preloadVideoThumbnails() {
-  const videoTemporaryCopy = videoPlayer.cloneNode(true)
-  document.body.appendChild(videoTemporaryCopy)
-  videoTemporaryCopy.style.display = "none"
-
-  let videoThumbnailsInterval = videoPlayer.duration < 120 ? 1 :
-    videoPlayer.duration < 300 ? 2 :
-      videoPlayer.duration < 600 ? 3 :
-        5
-  const thumbnailWidth = 120
-  const thumbnailHeight = 70
-
-  videoTemporaryCopy.addEventListener(
-    'loadeddata',
-    async function setThumbs() {
-      for (let i = 0; i <= videoTemporaryCopy.duration; i = i + (videoThumbnailsInterval)) {
-        const canvas = document.createElement('canvas')
-        canvas.width = thumbnailWidth
-        canvas.height = thumbnailHeight
-
-        const context = canvas.getContext('2d')
-        videoTemporaryCopy.currentTime = i
-
-        await new Promise(function (resolve) {
-          const event = function () {
-            context?.drawImage(videoTemporaryCopy, 0, 0, thumbnailWidth, thumbnailHeight)
-            const url = canvas.toDataURL('image/jpeg')
-            videoThumbnails.push({ sec: i, url })
-            videoTemporaryCopy.removeEventListener('canplay', event)
-            resolve(null)
-          }
-          videoTemporaryCopy.addEventListener('canplay', event)
-        })
-      }
-      setTimeout(() => document.body.removeChild(videoTemporaryCopy))
-      console.log('video thumbnails loaded')
-    }, false
-  )
-}
-
 function updateTimelineTooltip(event) {
   const timePoint = Math.round((event.offsetX / event.target.clientWidth) * videoPlayer.duration)
   timelineBar.setAttribute('data-time-point', timePoint)
   timelineTooltipTime.textContent = formatTime(timePoint)
   const rect = videoPlayer.getBoundingClientRect()
-  timelineTooltip.style.left = `${event.pageX - rect.left - 40}px`
+  timelineTooltip.style.left = `${event.pageX - rect.left - 45}px`
 
   videoThumbnails.forEach(element => {
     if (element.sec === timePoint) {
       timelineTooltipImg.style.background = `url(${element.url}) 50% 50% no-repeat`
-      timelineTooltipImg.style.backgroundSize = "cover"
     }
   })
 }
@@ -277,39 +279,7 @@ function handleProgressBarChanges(event) {
   if (target === volumeBar) {
     playSound(value)
     updateVolumeBar(value)
-    if (value == 0) {
-      if (controlVolume.classList.contains('low-volume-icon')) {
-        changeOneIconToOther('low-volume-icon', 'mute-icon')
-      } else if (controlVolume.classList.contains('medium-volume-icon')) {
-        changeOneIconToOther('medium-volume-icon', 'mute-icon')
-      } else if (controlVolume.classList.contains('full-volume-icon')) {
-        changeOneIconToOther('full-volume-icon', 'mute-icon')
-      }
-    } else if (value < 33.3) {
-      if (controlVolume.classList.contains('mute-icon')) {
-        changeOneIconToOther('mute-icon', 'low-volume-icon')
-      } else if (controlVolume.classList.contains('medium-volume-icon')) {
-        changeOneIconToOther('medium-volume-icon', 'low-volume-icon')
-      } else if (controlVolume.classList.contains('full-volume-icon')) {
-        changeOneIconToOther('full-volume-icon', 'low-volume-icon')
-      }
-    } else if (value < 66.6) {
-      if (controlVolume.classList.contains('mute-icon')) {
-        changeOneIconToOther('mute-icon', 'medium-volume-icon')
-      } else if (controlVolume.classList.contains('low-volume-icon')) {
-        changeOneIconToOther('low-volume-icon', 'medium-volume-icon')
-      } else if (controlVolume.classList.contains('full-volume-icon')) {
-        changeOneIconToOther('full-volume-icon', 'medium-volume-icon')
-      }
-    } else if (value <= 100) {
-      if (controlVolume.classList.contains('mute-icon')) {
-        changeOneIconToOther('mute-icon', 'full-volume-icon')
-      } else if (controlVolume.classList.contains('low-volume-icon')) {
-        changeOneIconToOther('low-volume-icon', 'full-volume-icon')
-      } else if (controlVolume.classList.contains('medium-volume-icon')) {
-        changeOneIconToOther('medium-volume-icon', 'full-volume-icon')
-      }
-    }
+    toggleVolumeControlView(value)
   }
 }
 
@@ -382,22 +352,3 @@ function toggleFullscreen() {
     document.exitFullscreen()
   }
 }
-
-
-///////////////////////////////////////// FRAME SPRITE //////////////////////////////////////////////////
-// loadFrameSprite = () => {
-//   const {
-//     width,
-//     height,
-//     src
-//   } = this.options.frameSprite,
-//     img = document.createElement("img");
-//   img.src = src, img.addEventListener("load", () => {
-//     this.progressBarTooltip.style.width = `${width}px`,
-//       this.progressBarTooltip.style.top = `-${height + 16}px`,
-//       this.progressBarTooltipBg.style.height = `${height}px`,
-//       this.progressBarTooltipBg.style.backgroundImage = `url(${src})`,
-//       this.frameOverlayBg.style.backgroundImage = `url(${src})`;
-//   });
-// };
-
