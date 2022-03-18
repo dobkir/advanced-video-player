@@ -33,8 +33,8 @@ The site has a responsive design and is adapted for devices with different scree
 ![Main language][main-language-shield]
 
 - Others<br>
-![SCSS](https://img.shields.io/badge/SCSS-40.3%25-c6538c?logo=Sass&logoColor=c6538c&style=for-the-badge)<br>
-![HTML5](https://img.shields.io/badge/HTML5-14.8%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
+![JavaScript](https://img.shields.io/badge/JavaScript-39.7%25-f1e05a?logo=JavaScript&logoColor=f1e05a&style=for-the-badge)<br>
+![HTML5](https://img.shields.io/badge/HTML5-16.2%25-e34c26?logo=HTML5&logoColor=e34c26&style=for-the-badge)
 
 - IDE<br>
 ![VSCode](https://img.icons8.com/color/48/000000/visual-studio-code-2019.png)<br>
@@ -74,5 +74,5 @@ Project Link: [https://github.com/dobkir/advanced-video-player](https://github.c
 [license-url]: https://github.com/dobkir/advanced-video-player/blob/master/LICENSE.txt
 [repo-size-shield]: https://img.shields.io/github/repo-size/dobkir/advanced-video-player.svg?style=for-the-badge
 [languages-shield]: https://img.shields.io/github/languages/count/dobkir/advanced-video-player.svg?style=for-the-badge
-[main-language-shield]: https://img.shields.io/github/languages/top/dobkir/advanced-video-player.svg?logo=JavaScript&logoColor=f1e05a&style=for-the-badge&color=f1e05a
+[main-language-shield]: https://img.shields.io/github/languages/top/dobkir/advanced-video-player.svg?logo=SASS&logoColor=c6538c&style=for-the-badge&color=c6538c
 [product-screenshot]: https://github.com/dobkir/trailers/blob/master/advanced-video-player_trailer/advanced-video-player_trailer.gif
