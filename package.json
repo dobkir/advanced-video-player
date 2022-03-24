@@ -1,7 +1,7 @@
 {
-  "name": "portfolio",
+  "name": "video-player",
   "version": "1.0.0",
-  "description": "Photographer Portfolio Website",
+  "description": "Advanced video player",
   "main": "index.js",
   "scripts": {
     "style": "sass --watch stylesheets/style.scss stylesheets/style.css",
